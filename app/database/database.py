@@ -4,7 +4,7 @@ from app.schemas.schemas import Athletes, Coaches, EntriesGender, Medals, Teams
 from app.security.security import MONGO_INITDB_ROOT_PASSWORD
 
 
-client = motor.motor_asyncio.AsyncIOMotorClient(f"mongodb://root:somepassword@localhost:27017") #mongo-db
+client = motor.motor_asyncio.AsyncIOMotorClient(f"mongodb://root:{MONGO_INITDB_ROOT_PASSWORD}@mongo-db:27017")
 database = client.olimpiadas
 
 athletes = database.Athletes
