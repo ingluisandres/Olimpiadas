@@ -1,0 +1,3 @@
+import os
+
+MONGO_INITDB_ROOT_PASSWORD = os.environ.get("MONGO_INITDB_ROOT_PASSWORD")

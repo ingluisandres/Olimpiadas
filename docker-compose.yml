@@ -1,0 +1,21 @@
+version: '3'
+services:
+  # web:
+  #   build: .
+  #   #restart: always SOLAMENTE EN DESARROLLO SE DEJA COMENTADO ESTA LINEA
+  #   environment: 
+  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+  #   ports:
+  #   - '5000:80'
+  #   container_name: python #change container name
+  database:
+    image: mongo:5.0.2
+    #restart: always SOLAMENTE EN DESARROLLO SE DEJA COMENTADO ESTA LINEA
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+    - '27017:27017'
+    container_name: mongo-db #change container name
+    volumes: 
+    - .docker/mongo-data:/data/db  #change container location if is necessary
