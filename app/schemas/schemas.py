@@ -9,28 +9,32 @@ class Athletes(BaseModel):
     Discipline: str
 
 class Coaches(BaseModel):
-    name: str
-    noc: str
-    discipline: str
-    event: str
+    _id: Optional[str]
+    Name: str
+    NOC: str
+    Discipline: str
+    Event: str
 
 class EntriesGender(BaseModel):
-    discipline: str
-    female: int
-    male: int
-    total: int
+    _id: Optional[str]    
+    Discipline: str
+    Female: int
+    Male: int
+    Total: int
 
 class Medals(BaseModel):
-    rank: int
-    team: str
-    gold: str
-    silver: str
-    bronze: str
-    total: str
-    rankbytotal: str
+    _id: Optional[str]    
+    Rank: int
+    Team: str
+    Gold: int
+    Silver: int
+    Bronze: int
+    Total: int
+    RankByTotal: int
 
 class Teams(BaseModel):
-    name: str
-    discipline: str
-    noc: str
-    event: str
+    _id: Optional[str]    
+    Name: str
+    Discipline: str
+    NOC: str
+    Event: str
