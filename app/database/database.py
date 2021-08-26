@@ -17,7 +17,7 @@ ALGORITHM = 'HS256'
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='v1/login')
 
-client = motor.motor_asyncio.AsyncIOMotorClient(f"mongodb://root:somepassword@localhost:27017") # mongo-db
+client = motor.motor_asyncio.AsyncIOMotorClient(f"mongodb://root:{MONGO_INITDB_ROOT_PASSWORD}@mongo-db:27017") # mongo-db
 database = client.olimpiadas
 
 athletes = database.Athletes
