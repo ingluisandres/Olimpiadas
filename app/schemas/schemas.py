@@ -38,3 +38,21 @@ class Teams(BaseModel):
     Discipline: str
     NOC: str
     Event: str
+
+
+class User(BaseModel):
+    email: str
+    password: str
+
+class Login(BaseModel):
+    email: str
+    password: str
+    class Config():
+        orm_mode = True
+
+class Token(BaseModel):
+    access_token: str
+    tocken_type: str
+
+class TokenData(BaseModel):
+    admin_name: Optional[str] = None    

@@ -4,10 +4,14 @@ sys.path.append("..")
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import athletes, coaches, entries_gender, medals, teams
+from app.routers import athletes, coaches, entries_gender, medals, teams, login, user
 
 
-app = FastAPI()
+app = FastAPI(
+    title="Los Juegos Olimpicos de 2020 en Japon",
+    description="Datos de los Entrenadores, Deportistas, Medallas y los Equipos",
+    version="0.1.0"
+)
 
 origins = ["https://localhost:3000"]
 
@@ -25,3 +29,5 @@ app.include_router(coaches.router)
 app.include_router(entries_gender.router)
 app.include_router(medals.router)
 app.include_router(teams.router)
+app.include_router(user.router)
+app.include_router(login.router)
