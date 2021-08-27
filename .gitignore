@@ -5,3 +5,4 @@ __pycache__/
 .vscode
 .pynb_checkpoints/
 .env
+.docker/
