@@ -19,9 +19,9 @@ async def get_coaches(skip:int=0, limit:int=10, current_user: User = Depends(get
     response = await fetch_all(skip=skip, limit=limit, collection=COACHES)
     return response
 
-@router.get("/{name}", response_model=Coaches)
-async def get_coaches_by_name(name, current_user: User = Depends(get_current_user)):
-    response = await fetch_one(name, collection=COACHES)
+@router.get("/{Name}", response_model=Coaches)
+async def get_coaches_by_name(Name, current_user: User = Depends(get_current_user)):
+    response = await fetch_one({"Name":Name}, collection=COACHES)
     if response:
         return response
-    raise HTTPException(404, f"there is no COACH item with this name:{name}")
+    raise HTTPException(404, f"there is no COACH item with this name:{Name}")

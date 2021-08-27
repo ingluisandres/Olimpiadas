@@ -23,9 +23,9 @@ database = client.olimpiadas
 users = database.User
 
 
-async def fetch_one(Name, 
+async def fetch_one(data:dict, 
             collection:motor.motor_asyncio.AsyncIOMotorCollection):
-    return await collection.find_one({"Name":Name})
+    return await collection.find_one(data)
 
 async def fetch_all(skip:int, limit:int, 
             collection:motor.motor_asyncio.AsyncIOMotorCollection):

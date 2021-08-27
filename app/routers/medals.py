@@ -19,10 +19,9 @@ async def get_medals(skip:int=0, limit:int=10, current_user: User = Depends(get_
     response = await fetch_all(skip=skip, limit=limit, collection=MEDALS)
     return response
 
-@router.get("/{team}", response_model=Medals)
-async def get_medals_by_team(team, current_user: User = Depends(get_current_user)):
-    """don't work"""
-    response = await fetch_one(team, collection=MEDALS)
+@router.get("/{Team}", response_model=Medals)
+async def get_medals_by_team(Team, current_user: User = Depends(get_current_user)):
+    response = await fetch_one({"Team":Team}, collection=MEDALS)
     if response:
         return response
-    raise HTTPException(404, f"there is no MEDALS item with this team:{team}")
+    raise HTTPException(404, f"there is no MEDALS item with this team:{Team}")
