@@ -17,81 +17,21 @@ ALGORITHM = 'HS256'
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='v1/login')
 
-client = motor.motor_asyncio.AsyncIOMotorClient(f"mongodb://root:{MONGO_INITDB_ROOT_PASSWORD}@mongo:27017") # mongo-db
+client = motor.motor_asyncio.AsyncIOMotorClient(f"mongodb://root:somepassword@localhost:27017") # mongo
 database = client.olimpiadas
 
-athletes = database.Athletes
-coaches = database.Coaches
-entries_gender = database.EntriesGender
-medals = database.Medals
-teams = database.Teams
 users = database.User
 
 
-async def fetch_one_athlete(Name):
-    document = await athletes.find_one({"Name":Name})
-    return document
+async def fetch_one(Name, 
+            collection:motor.motor_asyncio.AsyncIOMotorCollection):
+    return await collection.find_one({"Name":Name})
 
-async def fetch_all_athletes(skip:int, limit:int):
+async def fetch_all(skip:int, limit:int, 
+            collection:motor.motor_asyncio.AsyncIOMotorCollection):
     """It's not recommendable to query all athletes"""
-    todos = []
-    cursor = athletes.find().skip(skip).limit(limit)
-    async for document in cursor:
-        document['_id']=str(document['_id'])
-        todos.append(document)
-    return todos
-
-
-async def fetch_one_coach(Name):
-    document = await coaches.find_one({"Name":Name})
-    return document
-
-async def fetch_all_coaches(skip:int, limit:int):
-    todos = []
-    cursor = coaches.find().skip(skip).limit(limit)
-    async for document in cursor:
-        document['_id']=str(document['_id'])
-        todos.append(document)
-    return todos
-
-
-async def fetch_one_entries_gender(Discipline):
-    document = await entries_gender.find_one({"Discipline":Discipline})
-    return document
-
-async def fetch_all_entries_gender(skip:int, limit:int):
-    todos = []
-    cursor = entries_gender.find().skip(skip).limit(limit)
-    async for document in cursor:
-        document['_id']=str(document['_id'])
-        todos.append(document)
-    return todos
-
-
-async def fetch_one_medals_by_team(Team):
-    document = await medals.find_one({"Team":Team})
-    return document
-
-async def fetch_all_medals(skip:int, limit:int):
-    todos = []
-    cursor = medals.find().skip(skip).limit(limit)
-    async for document in cursor:
-        document['_id']=str(document['_id'])
-        todos.append(document)
-    return todos
-
-
-async def fetch_one_team(Name):
-    document = await teams.find_one({"Name":Name})
-    return document
-
-async def fetch_all_teams(skip:int, limit:int):
-    todos = []
-    cursor = teams.find().skip(skip).limit(limit)
-    async for document in cursor:
-        document['_id']=str(document['_id'])
-        todos.append(document)
-    return todos
+    cursor = collection.find().skip(skip).limit(limit)
+    return [document async for document in cursor]
 
 
 async def create_user(user):
@@ -142,10 +82,9 @@ def verify_token(data:str, credentials_exception):
     except JWTError:
         raise credentials_exception
 
-def get_user(token: str = Depends(oauth2_scheme)):
+async def get_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        document = users.find_one({"email":payload["sub"]})
-        return document._result
+        return await users.find_one({"email":payload["sub"]})
     except:
         raise HTTPException(status_code=401, detail="Invalid Email or Password")

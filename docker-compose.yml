@@ -1,13 +1,13 @@
 version: '3'
 services:
-  web:
-    build: .
-    #restart: always SOLAMENTE EN DESARROLLO SE DEJA COMENTADO ESTA LINEA
-    environment: 
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    ports:
-    - '5000:80'
-    container_name: python
+  # web:
+  #   build: .
+  #   #restart: always SOLAMENTE EN DESARROLLO SE DEJA COMENTADO ESTA LINEA
+  #   environment: 
+  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+  #   ports:
+  #   - '5000:80'
+  #   container_name: python
   database:
     image: mongo:5.0.2
     #restart: always SOLAMENTE EN DESARROLLO SE DEJA COMENTADO ESTA LINEA
