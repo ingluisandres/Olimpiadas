@@ -18,4 +18,4 @@ services:
     - '27017:27017'
     container_name: mongo-db
     volumes: 
-    - .docker/mongo-data:/data/db
+    - docker/.docker/mongo-data:/data/db
