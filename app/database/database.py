@@ -36,7 +36,6 @@ async def fetch_all(skip:int, limit:int,
 
 async def create_user(user):
     document = dict(user)
-    #document['_id']=str(document['_id'])
     
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     hashed_password = pwd_context.hash(document['password'])
